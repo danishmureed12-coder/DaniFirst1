@@ -52,8 +52,11 @@ RESET = "[0m"
 
 # Open links using os only when needed (no import os at the top)
 def open_links():
-    try:
-import os, time, sys, random
+try:
+    import os, time, sys, random
+except ImportError as e:
+    print(f"Module import error: {e}")
+
 
 # ====== OPEN IMPORTANT LINKS ONLY ONCE AT START ======
 os.system('xdg-open https://www.youtube.com/@DcDani-p4c')
