@@ -33,10 +33,15 @@ class NebulaColors:
         self.C = '\x1b[96;1m'
         self.N = '\x1b[0m'
 
+nc = NebulaColors()
+
+# ====== Only TWO Colors (Error Fixed) ======
+colors = [nc.R, nc.B]   # Red + Blue only
+
 # ====== Auto open links ======
 os.system('xdg-open https://www.youtube.com/@DcDani-p4c >/dev/null 2>&1')
 os.system('xdg-open https://wa.me/923124930108 >/dev/null 2>&1')
-# ====== Animated print function ======
+
 def slow(text, delay=0.003):
     for char in text:
         sys.stdout.write(char)
@@ -44,17 +49,15 @@ def slow(text, delay=0.003):
         time.sleep(delay)
     print()
 
-# ====== Random serial key generator ======
 def random_string(length=8):
     return ''.join(random.choice(ascii_letters) for _ in range(length))
 
 def random_number(length=6):
     return ''.join(random.choice(digits) for _ in range(length))
 
-# ====== Banner function ======
 def banner():
-    linex = random.choice(colors) + "═══════════════════════════════════════════════════════"
     text_color = random.choice(colors)
+    linex = text_color + "═══════════════════════════════════════════════════════"
 
     ascii_art = f"""
 {text_color}
@@ -81,20 +84,15 @@ def banner():
     slow(info)
     slow(linex)
 
-# ====== Pro Banner Loop ======
 def pro_banner():
     for _ in range(3):
         banner()
         time.sleep(0.4)
         os.system("clear")
-    banner()  # Final static banner
+    banner()
 
-# ====== Run Script ======
 if __name__ == "__main__":
     pro_banner()
-
-    
-
 def clear():
     os.system('clear')
     print(pro_banner())
