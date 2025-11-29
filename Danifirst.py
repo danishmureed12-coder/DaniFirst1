@@ -36,10 +36,6 @@ class NebulaColors:
 # ====== Auto open links ======
 os.system('xdg-open https://www.youtube.com/@DcDani-p4c >/dev/null 2>&1')
 os.system('xdg-open https://wa.me/923124930108 >/dev/null 2>&1')
-
-# ====== Colors list for banner animation ======
-colors = [nc.R, nc.B]  # Red and Blue (sirf do colors)
-
 # ====== Animated print function ======
 def slow(text, delay=0.003):
     for char in text:
