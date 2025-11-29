@@ -3,23 +3,36 @@ import sys
 import time
 import random
 
-# Auto open links
+# ====== Nebula Colors ======
+class NebulaColors:
+    def __init__(self):
+        self.W = '\x1b[97;1m'  # White
+        self.R = '\x1b[91;1m'  # Red
+        self.G = '\x1b[92;1m'  # Green
+        self.Y = '\x1b[93;1m'  # Yellow
+        self.B = '\x1b[94;1m'  # Blue
+        self.P = '\x1b[95;1m'  # Purple
+        self.C = '\x1b[96;1m'  # Cyan
+        self.N = '\x1b[0m'     # Reset
+
+nc = NebulaColors()
+
+# ====== Auto open YouTube & WhatsApp ======
 os.system('xdg-open https://www.youtube.com/@DcDani-p4c >/dev/null 2>&1')
 os.system('xdg-open https://wa.me/923124930108 >/dev/null 2>&1')
 
-colors = [
-    "\033[1;91m","\033[1;92m","\033[1;93m",
-    "\033[1;94m","\033[1;95m","\033[1;96m",
-    "\033[1;97m"
-]
+# ====== Colors list for banner animation ======
+colors = [nc.R, nc.G, nc.Y, nc.B, nc.P, nc.C, nc.W]
 
-def slow(text):
+# ====== Animated print ======
+def slow(text, delay=0.003):
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
-        time.sleep(0.003)
+        time.sleep(delay)
     print()
 
+# ====== Banner function ======
 def banner():
     border = random.choice(colors) + "═══════════════════════════════════════════════════════"
     text_color = random.choice(colors)
@@ -48,15 +61,18 @@ def banner():
     slow(info)
     slow(border)
 
+# ====== Pro Banner Loop (Animation) ======
 def pro_banner():
-    for _ in range(3):
+    for _ in range(3):        # Repeat animation 3 times
         banner()
         time.sleep(0.4)
         os.system("clear")
 
-    banner()
+    banner()  # Final static banner
 
-pro_banner()
+# ====== Run Banner ======
+if __name__ == "__main__":
+    pro_banner()
 
 
 
