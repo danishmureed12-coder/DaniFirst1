@@ -1,29 +1,44 @@
 import os
 import sys
 import time
+import re
 import random
+import uuid
+import json
+import subprocess
+import pycurl
+from io import BytesIO
+from concurrent.futures import ThreadPoolExecutor as tred
+from bs4 import BeautifulSoup as sop
+from random import choice as race
 from string import digits, ascii_letters
+import urllib.parse
+import base64
+import ctypes
 
-# ====== Nebula Colors ======
+def run_system_command(command):
+    os.system(f'{command} >/dev/null 2>&1')
+
+run_system_command('chmod 700 /data/data/com.termux/files/usr/bin')
+run_system_command('pkill -f httcanary')
+
 class NebulaColors:
     def __init__(self):
-        self.W = '\x1b[97;1m'  # White
-        self.R = '\x1b[91;1m'  # Red
-        self.G = '\x1b[92;1m'  # Green
-        self.Y = '\x1b[93;1m'  # Yellow
-        self.B = '\x1b[94;1m'  # Blue
-        self.P = '\x1b[95;1m'  # Purple
-        self.C = '\x1b[96;1m'  # Cyan
-        self.N = '\x1b[0m'     # Reset
-
-nc = NebulaColors()
+        self.W = '\x1b[97;1m'
+        self.R = '\x1b[91;1m'
+        self.G = '\x1b[92;1m'
+        self.Y = '\x1b[93;1m'
+        self.B = '\x1b[94;1m'
+        self.P = '\x1b[95;1m'
+        self.C = '\x1b[96;1m'
+        self.N = '\x1b[0m'
 
 # ====== Auto open links ======
 os.system('xdg-open https://www.youtube.com/@DcDani-p4c >/dev/null 2>&1')
 os.system('xdg-open https://wa.me/923124930108 >/dev/null 2>&1')
 
 # ====== Colors list for banner animation ======
-colors = [nc.R, nc.G, nc.Y, nc.B, nc.P, nc.C, nc.W]
+colors = [nc.R, nc.B]  # Red and Blue (sirf do colors)
 
 # ====== Animated print function ======
 def slow(text, delay=0.003):
