@@ -37,10 +37,8 @@ def show_logo():
 \033[1;96m╚═════╝░░╚════╝░╚═╝░░╚══╝╚═╝╚═╝
            \033[1;97mD  A  N  I
     """
-
-    print(logo)
+print(logo)
     print("\033[1;90m───────────────[ DANI PAID TOOL ]───────────────\033[0m\n")
-
 import os
 import sys
 import time
