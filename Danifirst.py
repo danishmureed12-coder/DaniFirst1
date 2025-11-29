@@ -53,146 +53,69 @@ RESET = "[0m"
 # Open links using os only when needed (no import os at the top)
 def open_links():
     try:
-        __import__("os").system('xdg-open https://www.youtube.com/@DcDani-p4c >/dev/null 2>&1 &')
-        __import__("os").system('xdg-open https://wa.me/03124930108 >/dev/null 2>&1 &')
-    except Exception:
-        pass
+import os, time, sys, random
 
-# 3D-style ASCII banner (two layered blocks to give depth)
-BANNER_FRONT = [
-    "  ██████╗  ░░█████╗  ░███╗  ░░██╗  ██╗",
-    "  ██╔══██╗ ██╔══██╗ ████╗  ░██║  ██║",
-    "  ██║  ░░██║ ███████║ ██╔██╗ ██║  ██║",
-    "  ██║  ░░██║ ██╔══██║ ██║╚████║ ██║",
-    "  ██████╔╝ ██║  ██║ ██║ ░╚███║ ██║",
-    "  ╚═════╝  ╚═╝  ╚═╝ ╚═╝  ░░╚══╝ ╚═╝",
-]
-BANNER_SHADOW = [
-    "   ░░░░   ░░░░░░    ░░░    ░░  ░ ",
-    "   ░░░░   ░░░░░░    ░░░    ░░  ░ ",
-    "   ░░░░   ░░░░░░    ░░░    ░░  ░ ",
-    "   ░░░░   ░░░░░░    ░░░    ░░  ░ ",
-    "   ░░░░   ░░░░░░    ░░░    ░░  ░ ",
-    "   ░░░░   ░░░░░░    ░░░    ░░  ░ ",
+# ====== OPEN IMPORTANT LINKS ONLY ONCE AT START ======
+os.system('xdg-open https://www.youtube.com/@DcDani-p4c')
+os.system('xdg-open https://wa.me/923124930108')
+
+# ====== MULTI COLOR LIST ======
+colors = [
+    "\033[1;91m","\033[1;92m","\033[1;93m",
+    "\033[1;94m","\033[1;95m","\033[1;96m",
+    "\033[1;97m"
 ]
 
-INFO_LINES = [
-    "Creator Name : Danish",
-    "Github       : danishmureed12",
-    "Whatsapp     : 03124930108",
-    "Tool         : FB Cloning",
-    "Status       : THIS IS PAID TOOL",
-]
+# ====== ANIMATED PRINT FUNCTION ======
+def slow(text):
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(0.003)
+    print()
 
-# Box drawing characters (double lines)
-TL = "╔"
-TR = "╗"
-BL = "╚"
-BR = "╝"
-HL = "═"
-VL = "║"
+# ====== FINAL PRO ANIMATED BANNER ======
+def banner():
+    border_color = random.choice(colors)
+    text_color = random.choice(colors)
 
-def get_terminal_width():
-    try:
-        return shutil.get_terminal_size().columns
-    except Exception:
-        return 80
+    border = border_color + "═══════════════════════════════════════════════════════"
 
-# Build the full framed block (border + centered content)
-def build_frame(colored_banner_lines, width):
-    inner_width = width - 4  # space for vertical bars and padding
+    ascii_art = f"""
+{text_color}
+ ██████╗░░█████╗░███╗░░██╗██╗
+ ██╔══██╗██╔══██╗████╗░██║██║
+ ██║░░██║███████║██╔██╗██║██║
+ ██║░░██║██╔══██║██║╚████║██║
+ ██████╔╝██║░░██║██║░╚███║██║
+ ╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝╚═╝
+"""
 
-    # Center banner (join front and shadow to create depth)
-    banner_block = []
-    for front, shadow in zip(colored_banner_lines[0], colored_banner_lines[1]):
-        line = front + "  " + shadow
-        banner_block.append(line.center(inner_width))
+    info = f"""
+{text_color}► Creator      : Danish
+► GitHub       : danishmureed12
+► WhatsApp     : 0312 4930108
+► YouTube      : @DcDani-p4c
+► Tool         : FB Cloning
+► Access       : PAID TOOL
+"""
 
-    # Prepare info lines centered
-    info_block = [line.center(inner_width) for line in INFO_LINES]
+    slow(border)
+    slow(ascii_art)
+    slow(info)
+    slow(border)
 
-    # Top border
-    top = TL + (HL * (inner_width + 2)) + TR
-    bottom = BL + (HL * (inner_width + 2)) + BR
+# ====== RUN ANIMATED MULTI‑COLOR BANNER LOOP ======
+def pro_banner():
+    for _ in range(3):        # Animation repeat count
+        banner()
+        time.sleep(0.4)
+        os.system("clear")
 
-    # Compose
-    lines = [top]
-    # empty padding line
-    lines.append(VL + ' ' * (inner_width + 2) + VL)
+    banner()  # Final static banner
 
-    for b in banner_block:
-        lines.append(VL + ' ' + b + ' ' + VL)
+pro_banner()
 
-    lines.append(VL + ' ' * (inner_width + 2) + VL)
-
-    for info in info_block:
-        lines.append(VL + ' ' + info + ' ' + VL)
-
-    # bottom padding + border
-    lines.append(VL + ' ' * (inner_width + 2) + VL)
-    lines.append(bottom)
-
-    return lines
-
-# Rainbow-wave painter: colorizes each character by position + phase
-def colorize_wave(text, phase=0, palette=COLORS):
-    out = []
-    n = len(palette)
-    for i, ch in enumerate(text):
-        color = palette[(i + phase) % n]
-        # keep spaces uncolored for a smoother look
-        out.append((color + ch + RESET) if ch != ' ' else ' ')
-    return ''.join(out)
-
-# Main animation loop
-def animate(speed="normal"):
-    open_links()
-    width = max(80, get_terminal_width())
-
-    # prepare banner with front & shadow
-    front = BANNER_FRONT
-    shadow = BANNER_SHADOW
-
-    phase = 0
-    # speed settings (seconds per frame)
-    if speed == "fast":
-        delay = 0.06
-    elif speed == "slow":
-        delay = 0.3
-    else:
-        delay = 0.15
-
-    try:
-        while True:
-            # build colored banner lines (front and shadow separately)
-            colored_front = [colorize_wave(line, phase) for line in front]
-            # use dimmer palette for shadow by shifting phase
-            colored_shadow = [colorize_wave(line, phase + 2) for line in shadow]
-
-            frame_lines = build_frame((colored_front, colored_shadow), width)
-
-            # clear and print
-            __import__("os").system('clear')
-            for ln in frame_lines:
-                print(ln)
-
-            phase = (phase + 1) % len(COLORS)
-            time.sleep(delay)
-
-    except KeyboardInterrupt:
-        # graceful exit
-        __import__("os").system('clear')
-        print("Animation stopped. Exiting...")
-        return
-
-if __name__ == '__main__':
-    arg = ""
-    if len(sys.argv) > 1:
-        arg = sys.argv[1].lower()
-    if arg in ("fast", "slow"):
-        animate(arg)
-    else:
-        animate("normal")
 
 
 def linex():
