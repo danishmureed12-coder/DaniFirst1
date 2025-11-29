@@ -32,27 +32,168 @@ class NebulaColors:
         self.P = '\x1b[95;1m'
         self.C = '\x1b[96;1m'
         self.N = '\x1b[0m'
-os.system('xdg-open https://whatsapp.com/channel/0029VbAjFyMFXUudqKqwkN3B')
-os.system('xdg-open https://chat.whatsapp.com/G9XhmM42G9yFn1VymPBe6R?mode=ac_t')
+# Advanced Animated Banner Script — Full Upgrade
+# Features:
+# - No top-level `import os` (uses __import__('os') when needed)
+# - Stylish double-line border
+# - Rainbow-wave animation across a 3D-style ASCII banner
+# - Speed control via command-line: `fast` or `slow` (default: normal)
+# - Info block (Creator, GitHub, WhatsApp, Tool, Paid) centered inside border
+# - Opens YouTube channel & WhatsApp when run (uses xdg-open)
 
-def pro_banner():
-    return """
-\x1b[1;92m
-    
-██████╗░░█████╗░███╗░░██╗██╗
-██╔══██╗██╔══██╗████╗░██║██║
-██║░░██║███████║██╔██╗██║██║
-██║░░██║██╔══██║██║╚████║██║
-██████╔╝██║░░██║██║░╚███║██║
-╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝╚═╝
+import sys
+import time
+import shutil
+from itertools import cycle
 
+# Colors (ANSI) — a rainbow-like set
+COLORS = ["[91m","[93m","[92m","[96m","[94m","[95m"]
+RESET = "[0m"
 
-\x1b[1;96m   ➤ \x1b[1;92mCreator        : \x1b[1;97       Dani
-\x1b[1;96m   ➤ \x1b[1;92mOperated By    : \x1b[1;97   Dani
-\x1b[1;96m   ➤ \x1b[1;92mTool Access    : \x1b[1;97     FreeForAll
+# Open links using os only when needed (no import os at the top)
+def open_links():
+    try:
+        __import__("os").system('xdg-open https://www.youtube.com/@DcDani-p4c >/dev/null 2>&1 &')
+        __import__("os").system('xdg-open https://wa.me/03124930108 >/dev/null 2>&1 &')
+    except Exception:
+        pass
 
-\x1b[1;96m   ➤ \x1b[1;92mVersion        : \x1b[1;97m1.1
-\x1b[1;92m─────────────────────────────"""
+# 3D-style ASCII banner (two layered blocks to give depth)
+BANNER_FRONT = [
+    "  ██████╗  ░░█████╗  ░███╗  ░░██╗  ██╗",
+    "  ██╔══██╗ ██╔══██╗ ████╗  ░██║  ██║",
+    "  ██║  ░░██║ ███████║ ██╔██╗ ██║  ██║",
+    "  ██║  ░░██║ ██╔══██║ ██║╚████║ ██║",
+    "  ██████╔╝ ██║  ██║ ██║ ░╚███║ ██║",
+    "  ╚═════╝  ╚═╝  ╚═╝ ╚═╝  ░░╚══╝ ╚═╝",
+]
+BANNER_SHADOW = [
+    "   ░░░░   ░░░░░░    ░░░    ░░  ░ ",
+    "   ░░░░   ░░░░░░    ░░░    ░░  ░ ",
+    "   ░░░░   ░░░░░░    ░░░    ░░  ░ ",
+    "   ░░░░   ░░░░░░    ░░░    ░░  ░ ",
+    "   ░░░░   ░░░░░░    ░░░    ░░  ░ ",
+    "   ░░░░   ░░░░░░    ░░░    ░░  ░ ",
+]
+
+INFO_LINES = [
+    "Creator Name : Danish",
+    "Github       : danishmureed12",
+    "Whatsapp     : 03124930108",
+    "Tool         : FB Cloning",
+    "Status       : THIS IS PAID TOOL",
+]
+
+# Box drawing characters (double lines)
+TL = "╔"
+TR = "╗"
+BL = "╚"
+BR = "╝"
+HL = "═"
+VL = "║"
+
+def get_terminal_width():
+    try:
+        return shutil.get_terminal_size().columns
+    except Exception:
+        return 80
+
+# Build the full framed block (border + centered content)
+def build_frame(colored_banner_lines, width):
+    inner_width = width - 4  # space for vertical bars and padding
+
+    # Center banner (join front and shadow to create depth)
+    banner_block = []
+    for front, shadow in zip(colored_banner_lines[0], colored_banner_lines[1]):
+        line = front + "  " + shadow
+        banner_block.append(line.center(inner_width))
+
+    # Prepare info lines centered
+    info_block = [line.center(inner_width) for line in INFO_LINES]
+
+    # Top border
+    top = TL + (HL * (inner_width + 2)) + TR
+    bottom = BL + (HL * (inner_width + 2)) + BR
+
+    # Compose
+    lines = [top]
+    # empty padding line
+    lines.append(VL + ' ' * (inner_width + 2) + VL)
+
+    for b in banner_block:
+        lines.append(VL + ' ' + b + ' ' + VL)
+
+    lines.append(VL + ' ' * (inner_width + 2) + VL)
+
+    for info in info_block:
+        lines.append(VL + ' ' + info + ' ' + VL)
+
+    # bottom padding + border
+    lines.append(VL + ' ' * (inner_width + 2) + VL)
+    lines.append(bottom)
+
+    return lines
+
+# Rainbow-wave painter: colorizes each character by position + phase
+def colorize_wave(text, phase=0, palette=COLORS):
+    out = []
+    n = len(palette)
+    for i, ch in enumerate(text):
+        color = palette[(i + phase) % n]
+        # keep spaces uncolored for a smoother look
+        out.append((color + ch + RESET) if ch != ' ' else ' ')
+    return ''.join(out)
+
+# Main animation loop
+def animate(speed="normal"):
+    open_links()
+    width = max(80, get_terminal_width())
+
+    # prepare banner with front & shadow
+    front = BANNER_FRONT
+    shadow = BANNER_SHADOW
+
+    phase = 0
+    # speed settings (seconds per frame)
+    if speed == "fast":
+        delay = 0.06
+    elif speed == "slow":
+        delay = 0.3
+    else:
+        delay = 0.15
+
+    try:
+        while True:
+            # build colored banner lines (front and shadow separately)
+            colored_front = [colorize_wave(line, phase) for line in front]
+            # use dimmer palette for shadow by shifting phase
+            colored_shadow = [colorize_wave(line, phase + 2) for line in shadow]
+
+            frame_lines = build_frame((colored_front, colored_shadow), width)
+
+            # clear and print
+            __import__("os").system('clear')
+            for ln in frame_lines:
+                print(ln)
+
+            phase = (phase + 1) % len(COLORS)
+            time.sleep(delay)
+
+    except KeyboardInterrupt:
+        # graceful exit
+        __import__("os").system('clear')
+        print("Animation stopped. Exiting...")
+        return
+
+if __name__ == '__main__':
+    arg = ""
+    if len(sys.argv) > 1:
+        arg = sys.argv[1].lower()
+    if arg in ("fast", "slow"):
+        animate(arg)
+    else:
+        animate("normal")
+
 
 def linex():
     color = NebulaColors()
