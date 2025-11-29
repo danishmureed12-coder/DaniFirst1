@@ -32,67 +32,46 @@ class NebulaColors:
         self.P = '\x1b[95;1m'
         self.C = '\x1b[96;1m'
         self.N = '\x1b[0m'
-
-nc = NebulaColors()
-
-# ====== Only TWO Colors (Error Fixed) ======
-colors = [nc.R, nc.B]   # Red + Blue only
-
-# ====== Auto open links ======
-os.system('xdg-open https://www.youtube.com/@DcDani-p4c >/dev/null 2>&1')
-os.system('xdg-open https://wa.me/923124930108 >/dev/null 2>&1')
-
-def slow(text, delay=0.003):
-    for char in text:
-        sys.stdout.write(char)
-        sys.stdout.flush()
-        time.sleep(delay)
-    print()
-
-def random_string(length=8):
-    return ''.join(random.choice(ascii_letters) for _ in range(length))
-
-def random_number(length=6):
-    return ''.join(random.choice(digits) for _ in range(length))
-
-def banner():
-    text_color = random.choice(colors)
-    linex = text_color + "═══════════════════════════════════════════════════════"
-
-    ascii_art = f"""
-{text_color}
- ██████╗░░█████╗░███╗░░██╗██╗
- ██╔══██╗██╔══██╗████╗░██║██║
- ██║░░██║███████║██╔██╗██║██║
- ██║░░██║██╔══██║██║╚████║██║
- ██████╔╝██║░░██║██║░╚███║██║
- ╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝╚═╝
-"""
-
-    info = f"""
-{text_color}► Creator      : Danish
-► GitHub       : danishmureed12
-► WhatsApp     : 03124930108
-► YouTube      : @DcDani-p4c
-► Tool         : FB Cloning
-► Access       : PAID TOOL
-► Serial Key   : {random_string(8)}-{random_number(6)}
-"""
-
-    slow(linex)
-    slow(ascii_art)
-    slow(info)
-    slow(linex)
+os.system('xdg-open https://whatsapp.com/channel/0029VbAjFyMFXUudqKqwkN3B')
+os.system('xdg-open https://chat.whatsapp.com/G9XhmM42G9yFn1VymPBe6R?mode=ac_t')
 
 def pro_banner():
-    for _ in range(3):
-        banner()
-        time.sleep(0.4)
-        os.system("clear")
-    banner()
+    border_color = '\x1b[1;92m'
+    reset_color = '\x1b[0m'
 
-if __name__ == "__main__":
-    pro_banner()
+    content = f"""
+   ██████╗░░█████╗░███╗░░██╗██╗
+   ██╔══██╗██╔══██╗████╗░██║██║
+   ██║░░██║███████║██╔██╗██║██║
+   ██║░░██║██╔══██║██║╚████║██║
+   ██████╔╝██║░░██║██║░╚███║██║
+   ╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝╚═╝
+
+   ➤ Creator        : Danish
+   ➤ GitHub         : danishmureed12
+   ➤ WhatsApp       : 03124930108
+   ➤ Tool Access    : PAID TOOL
+   ➤ Version        : 1.1
+"""
+
+    # Split lines and add side borders
+    lines = content.splitlines()
+    max_length = max(len(line) for line in lines)
+    border_line = border_color + '╔' + '═'*(max_length + 2) + '╗' + reset_color
+    bottom_line = border_color + '╚' + '═'*(max_length + 2) + '╝' + reset_color
+
+    bordered_content = [border_line]
+    for line in lines:
+        bordered_content.append(border_color + '║ ' + reset_color + line.ljust(max_length) + border_color + ' ║' + reset_color)
+    bordered_content.append(bottom_line)
+
+    return '\n'.join(bordered_content)
+
+
+def linex():
+    color = NebulaColors()
+    
+
 def clear():
     os.system('clear')
     print(pro_banner())
