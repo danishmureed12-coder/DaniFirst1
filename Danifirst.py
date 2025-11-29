@@ -18,14 +18,14 @@ class NebulaColors:
 
 nc = NebulaColors()
 
-# ====== Auto open links ======
+# ====== Auto open YouTube & WhatsApp links ======
 os.system('xdg-open https://www.youtube.com/@DcDani-p4c >/dev/null 2>&1')
 os.system('xdg-open https://wa.me/923124930108 >/dev/null 2>&1')
 
 # ====== Colors list for banner ======
 colors = [nc.R, nc.G, nc.Y, nc.B, nc.P, nc.C, nc.W]
 
-# ====== Animated print ======
+# ====== Animated print function ======
 def slow(text, delay=0.003):
     for char in text:
         sys.stdout.write(char)
@@ -33,7 +33,7 @@ def slow(text, delay=0.003):
         time.sleep(delay)
     print()
 
-# ====== Random string/number generator ======
+# ====== Random serial key generator ======
 def random_string(length=8):
     return ''.join(random.choice(ascii_letters) for _ in range(length))
 
@@ -70,7 +70,7 @@ def banner():
     slow(info)
     slow(border)
 
-# ====== Banner loop ======
+# ====== Pro Banner Loop (Animation) ======
 def pro_banner():
     for _ in range(3):        # Repeat animation 3 times
         banner()
@@ -79,14 +79,10 @@ def pro_banner():
 
     banner()  # Final static banner
 
-# ====== Run ======
+# ====== Run Banner ======
 if __name__ == "__main__":
     pro_banner()
 
-
-
-def linex():
-    color = NebulaColors()
     
 
 def clear():
