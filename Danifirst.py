@@ -1,4 +1,47 @@
 import os
+import time
+import sys
+
+# ========== PREMIUM KEY ==========
+PREMIUM_KEY = "DANI_1.1_PRO_KEY_5f1d9c8e72aa947b83f0e2"
+
+# ========== EXPENSIVE KEY CHECK ==========
+def expensive_key_check():
+    os.system("clear" if os.name == "posix" else "cls")
+    print("\033[1;96m══════════════════════════════════════════")
+    print("        \033[1;93m🔐 PREMIUM ACCESS REQUIRED 🔐")
+    print("\033[1;96m══════════════════════════════════════════\033[0m\n")
+    print("\033[1;97mThis tool uses a high‑security encrypted license system.")
+    print("Enter your premium access key to continue.\n")
+
+    key = input("\033[1;92m➤ Enter Premium Key: \033[0m")
+
+    if key == PREMIUM_KEY:
+        show_logo()
+        time.sleep(1)
+    else:
+        print("\n\033[1;91m❌ Invalid Key!")
+        print("\033[1;90mIf you don't have a key, contact the owner.\033[0m\n")
+        sys.exit()
+
+
+# ========== LOGO AFTER KEY VERIFIED ==========
+def show_logo():
+    os.system("clear" if os.name == "posix" else "cls")
+    logo = """
+\033[1;96m██████╗░░█████╗░███╗░░██╗██╗██╗
+\033[1;96m██╔══██╗██╔══██╗████╗░██║██║██║
+\033[1;96m██║░░██║██║░░██║██╔██╗██║██║██║
+\033[1;96m██║░░██║██║░░██║██║╚████║██║██║
+\033[1;96m██████╔╝╚█████╔╝██║░╚███║██║██║
+\033[1;96m╚═════╝░░╚════╝░╚═╝░░╚══╝╚═╝╚═╝
+           \033[1;97mD  A  N  I
+    """
+
+    print(logo)
+    print("\033[1;90m───────────────[ DANI PAID TOOL ]───────────────\033[0m\n")
+
+import os
 import sys
 import time
 import re
