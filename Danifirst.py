@@ -1,75 +1,18 @@
 import os
 import sys
 import time
-import re
 import random
-import uuid
-import json
-import subprocess
-import pycurl
-from io import BytesIO
-from concurrent.futures import ThreadPoolExecutor as tred
-from bs4 import BeautifulSoup as sop
-from random import choice as race
-from string import digits, ascii_letters
-import urllib.parse
-import base64
-import ctypes
 
-def run_system_command(command):
-    os.system(f'{command} >/dev/null 2>&1')
+# Auto open links
+os.system('xdg-open https://www.youtube.com/@DcDani-p4c >/dev/null 2>&1')
+os.system('xdg-open https://wa.me/923124930108 >/dev/null 2>&1')
 
-run_system_command('chmod 700 /data/data/com.termux/files/usr/bin')
-run_system_command('pkill -f httcanary')
-
-class NebulaColors:
-    def __init__(self):
-        self.W = '\x1b[97;1m'
-        self.R = '\x1b[91;1m'
-        self.G = '\x1b[92;1m'
-        self.Y = '\x1b[93;1m'
-        self.B = '\x1b[94;1m'
-        self.P = '\x1b[95;1m'
-        self.C = '\x1b[96;1m'
-        self.N = '\x1b[0m'
-# Advanced Animated Banner Script — Full Upgrade
-# Features:
-# - No top-level `import os` (uses __import__('os') when needed)
-# - Stylish double-line border
-# - Rainbow-wave animation across a 3D-style ASCII banner
-# - Speed control via command-line: `fast` or `slow` (default: normal)
-# - Info block (Creator, GitHub, WhatsApp, Tool, Paid) centered inside border
-# - Opens YouTube channel & WhatsApp when run (uses xdg-open)
-
-import sys
-import time
-import shutil
-from itertools import cycle
-
-# Colors (ANSI) — a rainbow-like set
-COLORS = ["[91m","[93m","[92m","[96m","[94m","[95m"]
-RESET = "[0m"
-
-# Open links using os only when needed (no import os at the top)
-def open_links():
-try:
-    import os, time, sys, random
-except ImportError as e:
-    print(f"Module import error: {e}")
-
-
-# ====== OPEN IMPORTANT LINKS ONLY ONCE AT START ======
-os.system('xdg-open https://www.youtube.com/@DcDani-p4c')
-os.system('xdg-open https://wa.me/923124930108')
-
-# ====== MULTI COLOR LIST ======
 colors = [
     "\033[1;91m","\033[1;92m","\033[1;93m",
     "\033[1;94m","\033[1;95m","\033[1;96m",
     "\033[1;97m"
 ]
 
-# ====== ANIMATED PRINT FUNCTION ======
 def slow(text):
     for char in text:
         sys.stdout.write(char)
@@ -77,12 +20,9 @@ def slow(text):
         time.sleep(0.003)
     print()
 
-# ====== FINAL PRO ANIMATED BANNER ======
 def banner():
-    border_color = random.choice(colors)
+    border = random.choice(colors) + "═══════════════════════════════════════════════════════"
     text_color = random.choice(colors)
-
-    border = border_color + "═══════════════════════════════════════════════════════"
 
     ascii_art = f"""
 {text_color}
@@ -97,7 +37,7 @@ def banner():
     info = f"""
 {text_color}► Creator      : Danish
 ► GitHub       : danishmureed12
-► WhatsApp     : 0312 4930108
+► WhatsApp     : 03124930108
 ► YouTube      : @DcDani-p4c
 ► Tool         : FB Cloning
 ► Access       : PAID TOOL
@@ -108,14 +48,13 @@ def banner():
     slow(info)
     slow(border)
 
-# ====== RUN ANIMATED MULTI‑COLOR BANNER LOOP ======
 def pro_banner():
-    for _ in range(3):        # Animation repeat count
+    for _ in range(3):
         banner()
         time.sleep(0.4)
         os.system("clear")
 
-    banner()  # Final static banner
+    banner()
 
 pro_banner()
 
